@@ -1,8 +1,0 @@
-frontend/
-README.md
-.git/
-.gitignore
-.env
-.env.example
-*.md
-.DS_Store
