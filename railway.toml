@@ -1,25 +1,22 @@
+# Render Configuration for CryptLink Backend
+
 [build]
-builder = "DOCKERFILE"
+builder = "NIXPACKS"
 
 [deploy]
-restartPolicyType = "ON_FAILURE"
-restartPolicyMaxRetries = 10
+startCommand = "java -jar target/cryptlink-0.0.1-SNAPSHOT.jar"
 healthcheckPath = "/api/health"
-healthcheckTimeout = 300
-healthcheckInterval = 15
 
-[[services]]
-name = "web"
-
-[services.ports]
-port = 8080
-
-[services.concurrency]
-type = "connections"
-hard_limit = 25
-soft_limit = 20
-
-[services.env]
-PORT = "8080"
-SPRING_PROFILES_ACTIVE = "railway"
-JAVA_OPTS = "-Xmx512m -Xms256m"
+[env]
+SPRING_PROFILES_ACTIVE = "prod"
+SERVER_PORT = "8080"
+SPRING_DATASOURCE_URL = "jdbc:postgresql://postgres.hjjyxjdnhqjhcnltxhgk:CryptLink83744@KLu@aws-1-ap-southeast-2.pooler.supabase.com:6543/postgres"
+SPRING_DATASOURCE_USERNAME = "postgres"
+SPRING_DATASOURCE_PASSWORD = "CryptLink83744@KLu"
+SPRING_DATA_REDIS_HOST = "crack-roughly-113743.upstash.io"
+SPRING_DATA_REDIS_PORT = "6379"
+SPRING_DATA_REDIS_PASSWORD = "gQAAAAAAAbxPAAIgcDFhOWRiMjZhODQ2MTU0YWYyOWNjYTEzNmNiYWJkM2M0ZA"
+CLOUD_STORAGE_SUPABASE_URL = "https://hjjyxjdnhqjhcnltxhgk.supabase.co"
+CLOUD_STORAGE_SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqanl4amRuaHFqaGNubHR4aGdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3NDI5NzcsImV4cCI6MjA5MzMxODk3N30.Lj7FT9Z1NxmTeqOHKNrfbOiX4-D1fzb9Pm7fbqaYsvo"
+CLOUD_STORAGE_BUCKET = "cryptlink-media"
+JWT_SECRET = "CryptLinkSuperSecureJWTSecretKey2024!Minimum256BitsLongForProduction"

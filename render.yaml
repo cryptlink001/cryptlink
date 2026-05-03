@@ -1,0 +1,55 @@
+# Render Deployment Configuration for CryptLink
+
+services:
+  # Backend Service (Spring Boot)
+  - type: web
+    name: cryptlink-backend
+    env: java
+    repo: https://github.com/cryptlink001/cryptlink.git
+    rootDir: backend
+    buildCommand: mvn clean install -DskipTests
+    startCommand: java -jar target/cryptlink-0.0.1-SNAPSHOT.jar
+    healthCheckPath: /api/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SERVER_PORT
+        value: 8080
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://postgres.hjjyxjdnhqjhcnltxhgk:CryptLink83744@KLu@aws-1-ap-southeast-2.pooler.supabase.com:6543/postgres
+      - key: SPRING_DATASOURCE_USERNAME
+        value: postgres
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: CryptLink83744@KLu
+      - key: SPRING_DATA_REDIS_HOST
+        value: crack-roughly-113743.upstash.io
+      - key: SPRING_DATA_REDIS_PORT
+        value: 6379
+      - key: SPRING_DATA_REDIS_PASSWORD
+        value: gQAAAAAAAbxPAAIgcDFhOWRiMjZhODQ2MTU0YWYyOWNjYTEzNmNiYWJkM2M0ZA
+      - key: CLOUD_STORAGE_SUPABASE_URL
+        value: https://hjjyxjdnhqjhcnltxhgk.supabase.co
+      - key: CLOUD_STORAGE_SUPABASE_KEY
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqanl4amRuaHFqaGNubHR4aGdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3NDI5NzcsImV4cCI6MjA5MzMxODk3N30.Lj7FT9Z1NxmTeqOHKNrfbOiX4-D1fzb9Pm7fbqaYsvo
+      - key: CLOUD_STORAGE_BUCKET
+        value: cryptlink-media
+      - key: JWT_SECRET
+        value: CryptLinkSuperSecureJWTSecretKey2024!Minimum256BitsLongForProduction
+
+  # Frontend Service (React)
+  - type: web
+    name: cryptlink-frontend
+    env: static
+    repo: https://github.com/cryptlink001/cryptlink.git
+    rootDir: frontend
+    buildCommand: npm run build
+    staticPublishPath: ./build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://cryptlink-backend.onrender.com/api
+      - key: REACT_APP_WS_URL
+        value: wss://cryptlink-backend.onrender.com/ws
+      - key: REACT_APP_ENV
+        value: production
+      - key: REACT_APP_DEBUG
+        value: false
