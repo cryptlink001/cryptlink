@@ -6,7 +6,7 @@ services:
     name: cryptlink-backend
     env: java
     repo: https://github.com/cryptlink001/cryptlink.git
-    rootDir: backend
+    rootDir: ./
     buildCommand: mvn clean install -DskipTests
     startCommand: java -jar target/cryptlink-0.0.1-SNAPSHOT.jar
     healthCheckPath: /api/health

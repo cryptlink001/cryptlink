@@ -6,6 +6,8 @@ builder = "NIXPACKS"
 [deploy]
 startCommand = "java -jar target/cryptlink-0.0.1-SNAPSHOT.jar"
 healthcheckPath = "/api/health"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
 
 [env]
 SPRING_PROFILES_ACTIVE = "prod"
