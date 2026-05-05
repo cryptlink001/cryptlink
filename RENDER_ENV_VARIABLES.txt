@@ -1,0 +1,61 @@
+RENDER ENVIRONMENT VARIABLES - COPY EXACTLY
+
+===============================================
+
+1. SPRING_PROFILES_ACTIVE
+   VALUE: prod
+
+2. SERVER_PORT
+   VALUE: 8080
+
+3. SPRING_DATASOURCE_URL
+   VALUE: jdbc:postgresql://postgres.hjjyxjdnhqjhcnltxhgk:CryptLink83744@KLu@aws-1-ap-southeast-2.pooler.supabase.com:6543/postgres
+
+4. SPRING_DATASOURCE_USERNAME
+   VALUE: postgres
+
+5. SPRING_DATASOURCE_PASSWORD
+   VALUE: CryptLink83744@KLu
+
+6. SPRING_DATA_REDIS_HOST
+   VALUE: crack-roughly-113743.upstash.io
+
+7. SPRING_DATA_REDIS_PORT
+   VALUE: 6379
+
+8. SPRING_DATA_REDIS_PASSWORD
+   VALUE: gQAAAAAAAbxPAAIgcDFhOWRiMjZhODQ2MTU0YWYyOWNjYTEzNmNiYWJkM2M0ZA
+
+9. CLOUD_STORAGE_SUPABASE_URL
+   VALUE: https://hjjyxjdnhqjhcnltxhgk.supabase.co
+
+10. CLOUD_STORAGE_SUPABASE_KEY
+    VALUE: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqanl4amRuaHFqaGNubHR4aGdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3NDI5NzcsImV4cCI6MjA5MzMxODk3N30.Lj7FT9Z1NxmTeqOHKNrfbOiX4-D1fzb9Pm7fbqaYsvo
+
+11. CLOUD_STORAGE_BUCKET
+    VALUE: cryptlink-media
+
+12. JWT_SECRET
+    VALUE: CryptLinkSuperSecureJWTSecretKey2024!Minimum256BitsLongForProduction
+
+13. ALLOWED_ORIGINS
+    VALUE: https://cryptlink-frontend.onrender.com,https://cryptlink-backend.onrender.com
+
+===============================================
+
+RENDER CONFIGURATION:
+- Name: cryptlink-backend
+- Language: Docker
+- Root Directory: ./
+- Dockerfile Path: ./Dockerfile
+- Health Check Path: /api/health
+- Instance Type: Free (or upgrade to Starter if needed)
+
+===============================================
+
+IMPORTANT NOTES:
+- Add ALL 13 environment variables exactly as shown
+- Health check path must be /api/health
+- Use Docker environment
+- Root directory should be ./ (or leave empty)
+- Dockerfile path should be ./Dockerfile
