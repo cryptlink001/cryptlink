@@ -20,11 +20,11 @@ Health Check Path: /api/health
 Instance Type: Free
 ```
 
-### 4. Add Environment Variables (EXACTLY 6)
+### 4. Add Environment Variables (EXACTLY 4)
 
-1. **SPRING_PROFILES_ACTIVE**
+1. **SERVER_PORT**
    ```
-   VALUE: prod
+   VALUE: 8080
    ```
 
 2. **SPRING_DATASOURCE_URL**
