@@ -1,0 +1,67 @@
+RENDER DEPLOYMENT - EXACT STEPS
+
+==========================================
+
+STEP 1: Go to render.com and sign in with GitHub
+
+STEP 2: Click "New +" → "Web Service"
+
+STEP 3: Select repository: cryptlink001/cryptlink
+
+STEP 4: Configure EXACTLY as below:
+
+Name: cryptlink-backend
+Language: Docker
+Root Directory: ./
+Dockerfile Path: ./Dockerfile
+Health Check Path: /api/health
+Instance Type: Free
+
+STEP 5: Add ONLY these 6 environment variables:
+
+1. SPRING_PROFILES_ACTIVE
+   VALUE: prod
+
+2. SPRING_DATASOURCE_URL
+   VALUE: jdbc:postgresql://postgres.hjjyxjdnhqjhcnltxhgk:CryptLink83744@KLu@aws-1-ap-southeast-2.pooler.supabase.com:6543/postgres
+
+3. SPRING_DATASOURCE_USERNAME
+   VALUE: postgres
+
+4. SPRING_DATASOURCE_PASSWORD
+   VALUE: CryptLink83744@KLu
+
+5. JWT_SECRET
+   VALUE: CryptLinkSuperSecureJWTSecretKey2024!Minimum256BitsLongForProduction
+
+6. ALLOWED_ORIGINS
+   VALUE: *
+
+STEP 6: Click "Deploy Web Service"
+
+STEP 7: Wait 5-10 minutes
+
+STEP 8: Test health check:
+https://cryptlink-backend.onrender.com/api/health
+
+EXPECTED RESPONSE:
+{
+  "status": "UP",
+  "timestamp": "2024-01-01T12:00:00.000Z",
+  "application": "CryptLink"
+}
+
+==========================================
+
+IF STILL FAILS:
+1. Check the logs in Render dashboard
+2. Look for specific error message
+3. Tell me the exact error
+
+==========================================
+
+IMPORTANT:
+- DO NOT add Redis variables for now
+- DO NOT add Storage variables for now
+- Keep it SIMPLE first
+- Get basic app running first

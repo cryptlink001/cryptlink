@@ -1,31 +1,26 @@
-# Use Java 17 as base image
-FROM openjdk:17-jdk-slim
+# Multi-stage build for smaller image
+FROM maven:3.9-openjdk-17-slim AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Install Maven and other dependencies
-RUN apt-get update && \
-    apt-get install -y maven && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Copy pom.xml first (for better layer caching)
+# Copy pom.xml and download dependencies
 COPY pom.xml .
+RUN mvn dependency:go-offline -B
 
-# Download dependencies (with timeout and retry)
-RUN mvn dependency:go-offline -B --timeout 300 || \
-    mvn dependency:resolve -B --timeout 300
-
-# Copy source code
+# Copy source and build
 COPY src ./src
+RUN mvn clean package -DskipTests -B
 
-# Build the application (with skip tests and error handling)
-RUN mvn clean package -DskipTests -B --quiet || \
-    (mvn clean compile -B --quiet && mvn package -DskipTests -B --quiet)
+# Runtime image
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
+
+# Copy only the jar file
+COPY --from=builder /app/target/cryptlink-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose port
 EXPOSE 8080
 
-# Run the application with proper JVM options
-CMD ["java", "-Xmx512m", "-Xms256m", "-jar", "target/cryptlink-0.0.1-SNAPSHOT.jar"]
+# Run the application
+CMD ["java", "-jar", "app.jar"]
