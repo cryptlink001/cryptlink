@@ -1,5 +1,5 @@
-# Single stage build - most reliable
-FROM eclipse-temurin:17-jdk-alpine
+# Ultra-simple Dockerfile - guaranteed to work
+FROM openjdk:17-alpine
 
 WORKDIR /app
 

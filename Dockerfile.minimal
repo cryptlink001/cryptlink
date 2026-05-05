@@ -1,0 +1,14 @@
+# Minimal Dockerfile - most basic
+FROM openjdk:17-alpine
+
+WORKDIR /app
+
+# Copy everything
+COPY . .
+
+# Build and run in one step
+RUN sh -c "apk add --no-cache maven && mvn clean package -DskipTests -B"
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "target/cryptlink-0.0.1-SNAPSHOT.jar"]

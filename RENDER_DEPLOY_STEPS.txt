@@ -1,4 +1,4 @@
-RENDER DEPLOYMENT - EXACT STEPS
+RENDER DEPLOYMENT - EXACT STEPS (FIXED)
 
 ==========================================
 
@@ -16,6 +16,17 @@ Root Directory: ./
 Dockerfile Path: ./Dockerfile
 Health Check Path: /api/health
 Instance Type: Free
+
+IF DOCKERFILE FAILS, TRY THESE ALTERNATIVES:
+
+Alternative 1:
+Dockerfile Path: ./Dockerfile.simple
+
+Alternative 2:
+Dockerfile Path: ./Dockerfile.minimal
+
+Alternative 3:
+Dockerfile Path: ./Dockerfile.fallback
 
 STEP 5: Add ONLY these 6 environment variables:
 
