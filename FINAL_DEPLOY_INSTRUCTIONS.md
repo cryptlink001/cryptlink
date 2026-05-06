@@ -29,12 +29,12 @@ Instance Type: Free
 
 2. **SPRING_DATASOURCE_URL**
    ```
-   VALUE: jdbc:postgresql://postgres.hjjyxjdnhqjhcnltxhgk:CryptLink83744@KLu@aws-1-ap-southeast-2.pooler.supabase.com:6543/postgres
+   VALUE: jdbc:postgresql://aws-1-ap-southeast-2.pooler.supabase.com:6543/postgres
    ```
 
 3. **SPRING_DATASOURCE_USERNAME**
    ```
-   VALUE: postgres
+   VALUE: postgres.hjjyxjdnhqjhcnltxhgk
    ```
 
 4. **SPRING_DATASOURCE_PASSWORD**
