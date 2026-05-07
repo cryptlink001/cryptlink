@@ -16,7 +16,7 @@ services:
       - key: SERVER_PORT
         value: 8080
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:postgresql://postgres.hjjyxjdnhqjhcnltxhgk:CryptLink83744@KLu@aws-1-ap-southeast-2.pooler.supabase.com:6543/postgres
+        value: jdbc:postgresql://postgres.hjjyxjdnhqjhcnltxhgk:CryptLink83744KLu@aws-1-ap-southeast-2.pooler.supabase.com:6543/postgres
       - key: SPRING_DATASOURCE_USERNAME
         value: postgres
       - key: SPRING_DATASOURCE_PASSWORD

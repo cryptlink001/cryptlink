@@ -59,41 +59,45 @@ public class AuthService {
     
     @Transactional
     public JwtResponse registerUser(SignupRequest signupRequest) {
-        // Check if username already exists
-        if (userRepository.existsByUsername(signupRequest.getUsername())) {
-            throw new RuntimeException("Username is already taken!");
+        try {
+            // Check if username already exists
+            if (userRepository.existsByUsername(signupRequest.getUsername())) {
+                throw new RuntimeException("Username is already taken!");
+            }
+            
+            // Check if email already exists
+            if (userRepository.existsByEmail(signupRequest.getEmail())) {
+                throw new RuntimeException("Email is already in use!");
+            }
+            
+            // Create new user
+            User user = new User();
+            user.setUsername(signupRequest.getUsername());
+            user.setEmail(signupRequest.getEmail());
+            user.setPasswordHash(passwordEncoder.encode(signupRequest.getPassword()));
+            user.setDisplayName(signupRequest.getDisplayName());
+            user.setPhoneNumber(signupRequest.getPhoneNumber());
+            user.setIsOnline(true);
+            user.setLastSeen(java.time.LocalDateTime.now());
+            
+            User savedUser = userRepository.save(user);
+            
+            // Generate JWT token
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                savedUser.getUsername(),
+                null,
+                UserPrincipal.create(savedUser).getAuthorities()
+            );
+            
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            
+            String jwt = tokenProvider.generateTokenFromUsername(savedUser.getUsername());
+            String refreshToken = tokenProvider.generateRefreshToken(savedUser.getUsername());
+            
+            return new JwtResponse(jwt, refreshToken, savedUser.getId(), savedUser.getUsername(), savedUser.getEmail());
+        } catch (Exception e) {
+            throw new RuntimeException("Registration failed: " + e.getMessage(), e);
         }
-        
-        // Check if email already exists
-        if (userRepository.existsByEmail(signupRequest.getEmail())) {
-            throw new RuntimeException("Email is already in use!");
-        }
-        
-        // Create new user
-        User user = new User();
-        user.setUsername(signupRequest.getUsername());
-        user.setEmail(signupRequest.getEmail());
-        user.setPasswordHash(passwordEncoder.encode(signupRequest.getPassword()));
-        user.setDisplayName(signupRequest.getDisplayName());
-        user.setPhoneNumber(signupRequest.getPhoneNumber());
-        user.setIsOnline(true);
-        user.setLastSeen(java.time.LocalDateTime.now());
-        
-        User savedUser = userRepository.save(user);
-        
-        // Generate JWT token
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-            savedUser.getUsername(),
-            null,
-            UserPrincipal.create(savedUser).getAuthorities()
-        );
-        
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        
-        String jwt = tokenProvider.generateTokenFromUsername(savedUser.getUsername());
-        String refreshToken = tokenProvider.generateRefreshToken(savedUser.getUsername());
-        
-        return new JwtResponse(jwt, refreshToken, savedUser.getId(), savedUser.getUsername(), savedUser.getEmail());
     }
     
     public JwtResponse refreshToken(String refreshToken) {
