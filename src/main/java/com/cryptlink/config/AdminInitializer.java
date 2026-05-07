@@ -9,9 +9,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 
 @Configuration
@@ -25,10 +24,8 @@ public class AdminInitializer implements ApplicationRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
     
-    @PersistenceContext
-    private EntityManager entityManager;
-    
     @Override
+    @Transactional
     public void run(ApplicationArguments args) throws Exception {
         try {
             // Check if admin user already exists
@@ -45,8 +42,7 @@ public class AdminInitializer implements ApplicationRunner {
                 admin.setCreatedAt(LocalDateTime.now());
                 admin.setUpdatedAt(LocalDateTime.now());
                 
-                entityManager.persist(admin);
-                entityManager.flush();
+                userRepository.save(admin);
                 logger.info("✅ Admin user created successfully: cryptlink001@gmail.com");
             } else {
                 logger.info("ℹ️ Admin user already exists: cryptlink001@gmail.com");
