@@ -64,6 +64,9 @@ public class User {
     @Column(name = "allow_messages_from_anyone")
     private Boolean allowMessagesFromAnyone = true;
     
+    @Column(name = "role")
+    private String role = "USER";
+    
     @Column(name = "last_seen")
     private LocalDateTime lastSeen;
     
@@ -154,6 +157,9 @@ public class User {
     
     public Boolean getIncognitoMode() { return incognitoMode; }
     public void setIncognitoMode(Boolean incognitoMode) { this.incognitoMode = incognitoMode; }
+    
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
     
     public Boolean getAllowMessagesFromAnyone() { return allowMessagesFromAnyone; }
     public void setAllowMessagesFromAnyone(Boolean allowMessagesFromAnyone) { this.allowMessagesFromAnyone = allowMessagesFromAnyone; }
