@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "set ESLINT_NO_DEV_ERRORS=true && node ./node_modules/react-scripts/bin/react-scripts.js build",
+    "build": "node build.js",
     "build:alt": "NODE_ENV=production node ./node_modules/react-scripts/bin/react-scripts.js build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
